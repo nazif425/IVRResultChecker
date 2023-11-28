@@ -1,0 +1,9 @@
+<Response>
+    <Say>To receive your result, please select your prefered option followed by the hash key to continue</Say>
+    <GetDigits timeout="30" finishOnKey="#" callbackUrl="https://nazif425.jprq.live/result_handler">
+        <Say>To listen to your result, Press 1.</Say>
+        <Say>To receive result via email, Press 2.</Say>
+        <Say>To receive result via sms, Press 3.</Say>
+        <Say>To abort this call, Press 0.</Say>
+    </GetDigits>
+</Response>

@@ -1,0 +1,9 @@
+<Response>
+    <Say>Welcome {firstname} {lastname} to result checker system</Say>
+    <Say>Please select your academic session followed by the hash key to continue</Say>
+    
+    <GetDigits timeout="30" finishOnKey="#" callbackUrl="https://nazif425.jprq.live/session_handler">
+        {session_menu}
+        <Say>To abort this call, Press 0 followed by the hash sign.</Say>
+    </GetDigits>
+</Response>

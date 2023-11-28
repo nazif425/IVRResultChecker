@@ -1,0 +1,7 @@
+<Response>
+    <Say>Sorry, The link code you provided is invalid.</Say>
+    <GetDigits timeout="30" finishOnKey="#" callbackUrl="https://nazif425.jprq.live/welcome_handler">
+        <Say>Please enter a valid link code followed by the hash key to continue</Say>
+    </GetDigits>
+    <Reject/>
+</Response>

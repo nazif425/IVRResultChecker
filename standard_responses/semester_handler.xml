@@ -1,0 +1,8 @@
+<Response>
+    <Say>Please select your the semester followed by the hash key to continue</Say>
+    
+    <GetDigits timeout="30" finishOnKey="#" callbackUrl="https://nazif425.jprq.live/result_handler">
+        {semester_menu}
+        <Say>To abort this call, Press 0 followed by the hash sign.</Say>
+    </GetDigits>
+</Response>

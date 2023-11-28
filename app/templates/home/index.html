@@ -1,0 +1,164 @@
+{% extends 'base.html' %} {% block title %} Result checking System {% endblock
+%} {% block content %}
+<h1>School Table</h1>
+<div id="PersonTableContainer"></div>
+{% endblock %} {% block jtscript %}
+<script type="text/javascript">
+  token = localStorage.getItem("token");
+  $(document).ready(function () {
+    $("#PersonTableContainer").jtable({
+      title: "School information",
+      actions: {
+        listAction: function (postData, jtParams) {
+          url = "/api/v1/schools";
+          if (jtParams.jtPageSize && jtParams.jtStartIndex) {
+            url = url + "?StartIndex=" + jtParams.jtStartIndex + "&PageSize=" + jtParams.jtPageSize;
+          }
+          var params = new URLSearchParams(postData);
+          // Convert URLSearchParams to an object
+          var postData = {};
+          params.forEach(function (value, key) {
+            postData[key] = value;
+          });
+          return $.Deferred(function ($dfd) {
+            $.ajax({
+              url,
+              type: "GET",
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+              //dataType: 'json',
+              //contentType: 'application/json',
+              //data: JSON.stringify(postData),
+              success: function (data) {
+                $dfd.resolve(data);
+              },
+              error: function () {
+                $dfd.reject();
+              },
+            });
+          });
+        },
+        createAction: function (postData, jtParams) {
+          var params = new URLSearchParams(postData);
+
+          // Convert URLSearchParams to an object
+          var postData = {};
+          params.forEach(function (value, key) {
+            postData[key] = value;
+          });
+
+          return $.Deferred(function ($dfd) {
+            $.ajax({
+              url: "/api/v1/schools",
+              type: "POST",
+              dataType: "json",
+              contentType: "application/json",
+              data: JSON.stringify(postData),
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+              success: function (data) {
+                $dfd.resolve(data);
+              },
+              error: function () {
+                $dfd.reject();
+              },
+            });
+          });
+        },
+        updateAction: function (postData, jtParams) {
+          var params = new URLSearchParams(postData);
+
+          // Convert URLSearchParams to an object
+          var postData = Object.create(null);
+          params.forEach(function (value, key) {
+            postData[key] = value;
+          });
+          console.log(postData);
+          return $.Deferred(function ($dfd) {
+            $.ajax({
+              url: "/api/v1/schools/" + postData.id,
+              type: "PUT",
+              dataType: "json",
+              contentType: "application/json",
+              data: JSON.stringify(postData),
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+              success: function (data) {
+                $dfd.resolve(data);
+              },
+              error: function () {
+                $dfd.reject();
+              },
+            });
+          });
+        },
+        deleteAction: function (postData, jtParams) {
+          var params = new URLSearchParams(postData);
+
+          // Convert URLSearchParams to an object
+          var postData = {};
+          params.forEach(function (value, key) {
+            postData[key] = value;
+          });
+
+          return $.Deferred(function ($dfd) {
+            $.ajax({
+              url: "/api/v1/schools/" + postData.id,
+              type: "DELETE",
+              dataType: "json",
+              contentType: "application/json",
+              data: JSON.stringify(postData),
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+              success: function (data) {
+                $dfd.resolve(data);
+              },
+              error: function () {
+                $dfd.reject();
+              },
+            });
+          });
+        },
+      },
+      fields: {
+        id: {
+          key: true,
+          list: false,
+        },
+        name: {
+          title: "Name",
+          width: "20%",
+        },
+        email: {
+          title: "Email",
+          width: "20%",
+        },
+        api_link: {
+          title: "API url",
+          width: "20%",
+        },
+        address: {
+          title: "Address",
+          width: "20%",
+        },
+        contact: {
+          title: "Contact",
+          width: "20%",
+        },
+        creatd_at: {
+          title: "Date created",
+          width: "30%",
+          type: "date",
+          create: false,
+          edit: false,
+        },
+      },
+    });
+    $("#PersonTableContainer").jtable("load");
+  });
+</script>
+{% endblock %}
